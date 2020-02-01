@@ -1,3 +1,4 @@
+import string
 import collections
 
 
@@ -30,9 +31,10 @@ def categorize_lyrics(lines):
 
 def count_words(verse_lines):
     counter = collections.Counter()
+
     for line in verse_lines:
         for word in line.split(" "):
-
+            word = "".join(c for c in word if c not in string.punctuation)
             counter[word.lower()] += 1
     return counter
 
@@ -47,8 +49,8 @@ def main():
 
     for k, v in data.items():
         print(k)
-        print(v.most_common(20))
-        print("")
+        for word in v.most_common():
+            print(word)
 
 
 if __name__ == "__main__":
