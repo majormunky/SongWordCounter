@@ -1,5 +1,14 @@
 import string
 import collections
+import csv
+
+
+def write_csv(filename, key, counter):
+    with open(filename, "w") as f:
+        writer = csv.writer(f)
+        writer.writerow([key, ""])
+        for word, amount in counter.most_common():
+            writer.writerow([word, amount])
 
 
 def get_file_contents(filename):
@@ -48,9 +57,7 @@ def main():
         data[k] = count_words(v)
 
     for k, v in data.items():
-        print(k)
-        for word in v.most_common():
-            print(word)
+        write_csv("Yah-Yah_{}.csv".format(k), k, v)
 
 
 if __name__ == "__main__":
