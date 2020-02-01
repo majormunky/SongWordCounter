@@ -1,10 +1,12 @@
 import string
 import collections
 import csv
+import os
 
 
 def write_csv(filename, key, counter):
-    with open(filename, "w") as f:
+    filepath = os.path.join("output", filename)
+    with open(filepath, "w") as f:
         writer = csv.writer(f)
         writer.writerow([key, ""])
         for word, amount in counter.most_common():
