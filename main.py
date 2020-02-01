@@ -1,4 +1,5 @@
 import os
+import collections
 
 
 def get_file_contents(filename):
@@ -23,18 +24,32 @@ def categorize_lyrics(lines):
             current_key = line_key
         elif line == "":
             current_key = None
-            print("found blank line")
         else:
             data[current_key].append(line)
     return data
+
+
+def count_words(verse_lines):
+    counter = collections.Counter()
+    for line in verse_lines:
+        for word in line.split(" "):
+
+            counter[word.lower()] += 1
+    return counter
 
 
 def main():
     filename = "data.txt"
     lines = get_file_contents(filename)
     result = categorize_lyrics(lines)
+    data = {}
     for k, v in result.items():
+        data[k] = count_words(v)
+
+    for k, v in data.items():
         print(k)
+        print(v.most_common(20))
+        print("")
 
 
 if __name__ == "__main__":
